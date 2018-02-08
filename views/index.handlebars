@@ -1,0 +1,141 @@
+<h1>Taz's Texas Burger Bar</h1>
+
+<h2>Add a Burger</h2>
+<form class="create-form">
+
+  <div class="form-group">
+    <label for="burger" style="color:red">New Burger:</label>
+    <input type="text" id="burger" name="name">
+  </div>
+
+    <button type="submit" id="new">Create Burger</button>
+
+    <button class="delete-burger" id="del">Devour!</button>
+
+</form>
+
+<footer>    
+    <div id="taz">
+        <img id="stand" src="http://www.aaanimations.com/taz61dp.gif" alt="taz hungry" >
+        <img id="move" src="http://www.animated-gifs.eu/category_cartoons/cartoons-taz/0025.gif" alt="tornado">
+        <img id="move2" src="http://www.animated-gifs.eu/category_cartoons/cartoons-taz/0025.gif" alt="tornado">
+        <img id="mac" src='http://www.pngmart.com/files/1/Healthy-Burger-PNG.png'> 
+        <img id="mac2" src='http://www.pngmart.com/files/1/Healthy-Burger-PNG.png'> 
+    </div>
+</footer>
+
+
+
+
+<style>
+    body {
+background: url('https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg?w=940&h=650&auto=compress&cs=tinysrgb');
+        background-repeat: no-repeat;
+        background-size: 100%;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 50px;
+        color: red;
+        padding-top: 45px;
+    }
+
+    h2 {
+        font-size: 30px;
+        color: brown;
+    }
+
+    #taz {
+        float: left;
+        size: 30px;
+        position: absolute;
+        bottom: 0;
+        padding-left: 50px;
+    }
+
+    /*#stand {
+        visibility: hidden;
+    }*/
+
+    #move {
+        visibility: hidden;  
+        background-size: cover;
+        background-repeat: no-repeat;
+        padding-bottom: 10px;
+    }
+
+    #delete {
+        color: red;
+    }
+
+    #mac {
+        float: right;
+        bottom: 0;
+        position: absolute;
+        height: 80px;
+        padding-bottom: 20px;
+        padding-left: 54%;
+    }  
+
+    #mac2 {
+        float: right;
+        bottom: 0;
+        position: absolute;
+        height: 80px;
+        padding-bottom: 20px;
+        padding-left: 64%;
+    }
+</style> 
+
+
+
+<script>
+    $(function() {
+
+$("#new").click(function(
+    $("#stand").show();
+));
+
+        $(".change-create").on("click", function(event) {
+    var id = $(this).data("id");
+    var newburger = $(this).data("newburger");
+
+    var newburger = {
+      create: newburger
+    };
+
+    $.ajax("/api/burgers/" + id, {
+      type: "PUT",
+      data: newburger
+    }).then(
+      function() {
+        console.log("added new burger name", newburger);
+
+        location.reload();
+      }
+    );
+
+    $(".create-form").on("submit", function(event) {
+
+    event.preventDefault();
+
+    var newburger = {
+      name: $("#ca").val().trim(),
+      sleepy: $("[name=create]:checked").val().trim()
+    };
+
+    $.ajax("/api/burgers", {
+      type: "POST",   
+      data: newburger
+    }).then(
+      function() {
+        console.log("created new burger");
+        location.reload();
+      }
+    );
+  });
+
+  });   
+</script>
+
